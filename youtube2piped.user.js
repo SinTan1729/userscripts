@@ -15,7 +15,7 @@
 (function () {
     "use strict";
     // Edit instance url here to go to any instance of choice
-    const instance = "https://piped.syncpundit.io"
+    const instance = "https://piped.video"
 
     const url = new URL(window.location.href.replace('/shorts/', '/watch?v='));
 
