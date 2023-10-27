@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube2Piped
 // @namespace    YouTube
-// @version      1.2
+// @version      1.2.0
 // @description  Redirect YouTube to chosen Piped instance
 // @author       SinTan
 // @match        *://*.youtube.com/*
