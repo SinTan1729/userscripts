@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube2Piped
 // @namespace    YouTube
-// @version      1.1
+// @version      1.2
 // @description  Redirect YouTube to chosen Piped instance
 // @author       SinTan
 // @match        *://*.youtube.com/*
@@ -9,7 +9,7 @@
 // @icon         https://raw.githubusercontent.com/TeamPiped/Piped/32e7ddaaff22f4a6c0d7f6359400323da7fefd69/public/img/icons/logo.svg
 // @grant        none
 // @run-at       document-start
-// @license      GPL-3.0
+// @license      GPL-3.0-only
 // ==/UserScript==
 
 (function () {
@@ -27,6 +27,15 @@
             url_new = url_new + '&t=' + ts;
         }
         window.location.replace(url_new);
+    } else {
+
+        let pattern = /https:\/\/www\.youtube\.com\/channel\/([A-Za-z0-9\_\-]+).*/;
+        let channelId = pattern.exec(url)[1];
+
+        if (channelId) {
+            let url_new = instance + '/channel/' + channelId;
+            window.location.replace(url_new);
+        }
     }
 }
 )();
