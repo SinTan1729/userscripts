@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube2Piped
 // @namespace    YouTube
-// @version      1.2.0
+// @version      1.2.1
 // @description  Redirect YouTube to chosen Piped instance
 // @author       SinTan
 // @match        *://*.youtube.com/*
@@ -29,11 +29,11 @@
         window.location.replace(url_new);
     } else {
 
-        let pattern = /https:\/\/www\.youtube\.com\/channel\/([A-Za-z0-9\_\-]+).*/;
+        let pattern = /https:\/\/www\.youtube\.com\/((?:(?:channel\/)|\@)[A-Za-z0-9\_\-]+).*/;
         let channelId = pattern.exec(url)[1];
 
         if (channelId) {
-            let url_new = instance + '/channel/' + channelId;
+            let url_new = instance + '/' + channelId;
             window.location.replace(url_new);
         }
     }
