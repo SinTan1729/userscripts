@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube2Piped
 // @namespace    YouTube
-// @version      1.2.1
+// @version      1.3.0
 // @description  Redirect YouTube to chosen Piped instance
 // @author       SinTan
 // @match        *://*.youtube.com/*
@@ -13,29 +13,45 @@
 // ==/UserScript==
 
 (function () {
-    "use strict";
-    // Edit instance url here to go to any instance of choice
-    const instance = "https://piped.video"
+  "use strict";
+  // Edit instance url here to go to any instance of choice
+  const instance = "https://piped.video";
 
-    const url = new URL(window.location.href.replace('/shorts/', '/watch?v='));
+  const url = new URL(window.location.href.replace('/shorts/','/watch?v='));
+  let url_new = null;
 
-    let id = url.searchParams.get('v');
-    let ts = url.searchParams.get('t');
-    if (id) {
-        let url_new = instance + '/watch?v=' + id;
-        if (ts) {
-            url_new = url_new + '&t=' + ts;
-        }
-        window.location.replace(url_new);
-    } else {
+  let id = url.searchParams.get('v');
+  let ts = url.searchParams.get('t');
+  let listId = url.searchParams.get('list');
 
-        let pattern = /https:\/\/www\.youtube\.com\/((?:(?:channel\/)|\@)[A-Za-z0-9\_\-]+).*/;
-        let channelId = pattern.exec(url)[1];
 
-        if (channelId) {
-            let url_new = instance + '/' + channelId;
-            window.location.replace(url_new);
-        }
+  if (id) {
+    url_new = instance + '/watch?v=' + id;
+    if (ts) {
+      url_new += '&t=' + ts;
     }
+    if (listId) {
+      url_new += '&list=' + listId;
+    }
+  }
+
+  if (!(url_new)) {
+    if (listId) {
+      url_new = instance + '/playlist?list=' + listId;
+    }
+  }
+
+  if (!(url_new)) {
+    let pattern = /https:\/\/www\.youtube\.com\/((?:(?:channel\/)|\@)[A-Za-z0-9\_\-]+).*/;
+    let channelAddr = pattern.exec(url)[1];
+
+    if (channelAddr) {
+      url_new = instance + '/' + channelAddr;
+    }
+  }
+
+  if (url_new) {
+    window.location.replace(url_new);
+  }
 }
 )();
