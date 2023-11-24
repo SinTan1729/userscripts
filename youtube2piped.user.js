@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube2Piped
 // @namespace    YouTube
-// @version      1.3.0
+// @version      1.4.0
 // @description  Redirect YouTube to chosen Piped instance
 // @author       SinTan
 // @match        *://*.youtube.com/*
@@ -14,10 +14,15 @@
 
 (function () {
   "use strict";
+
+  if (location.href.endsWith('#no-piped')) {
+    exit;
+  }
+
   // Edit instance url here to go to any instance of choice
   const instance = "https://piped.video";
 
-  const url = new URL(window.location.href.replace('/shorts/','/watch?v='));
+  const url = new URL(window.location.href.replace('/shorts/', '/watch?v='));
   let url_new = null;
 
   let id = url.searchParams.get('v');
