@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         YouTube2Piped
 // @namespace    YouTube
-// @version      1.4.1
+// @version      1.4.2
 // @description  Redirect YouTube to chosen Piped instance
 // @author       SinTan
 // @match        *://*.youtube.com/*
@@ -15,6 +15,12 @@
 (function () {
   "use strict";
 
+  // Do not execute inside embedded players
+  if (window.location !== window.parent.location) {
+    exit;;
+  }
+
+  // Use #no-piped as an escape term
   if (location.href.endsWith('#no-piped')) {
     exit;
   }
