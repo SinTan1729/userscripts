@@ -1,7 +1,8 @@
 // ==UserScript==
 // @name         One Click Copy on YouTube
-// @version      1.0
+// @version      1.1
 // @description  Replaces the YouTube share button with a copy button that copies the shortlinks using a single click
+// @homepage     https://github.com/SinTan1729/userscripts
 // @author       SinTan
 // @license      GPL-3.0-only
 // @namespace    YouTube
@@ -34,15 +35,13 @@ function onUrlChange() {
     if (svgs.length < 1) {
       return false;
     }
-    // This is important during navigation, makes sure we wait for the new content
-    const btn = document.querySelector('#actions button-view-model button[title="Share"]');
-    if (btn.getElementsByClassName("yt-spec-button-shape-next__button-text-content")[0].innerHTML === 'Copy URL') {
-      return false;
-    }
     // Change the text
     clearInterval(intv);
     console.log('Replacing the share button with a copy button.');
-    btn.getElementsByClassName("yt-spec-button-shape-next__button-text-content")[0].innerHTML = 'Copy URL';
+    const btn = document.querySelector('#actions button-view-model button[title="Share"]');
+    btn.title = 'Copy the URL';
+    btn.ariaLabel = 'Copy';
+    btn.getElementsByClassName("yt-spec-button-shape-next__button-text-content")[0].innerHTML = 'Copy';
     // Change the icon
     const svg = svgs[0];
     svg.innerHTML = '<path fill-rule="evenodd" d="M21 8a3 3 0 0 0-3-3h-8a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h8a3 3 0 0 0 3-3V8Zm-2 0a1 1 0 0 0-1-1h-8a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V8Z" clip-rule="evenodd"/>';
@@ -53,6 +52,11 @@ function onUrlChange() {
     const url = 'https://youtu.be/' + videoID;
     btn.onclick = function() {
       GM.setClipboard(url, 'text/plain');
+      const btn = document.querySelector('#actions button-view-model button[aria-label="Copy"]');
+      btn.getElementsByClassName("yt-spec-button-shape-next__button-text-content")[0].innerHTML = "Copied!";
+      setTimeout(function() {
+        btn.getElementsByClassName("yt-spec-button-shape-next__button-text-content")[0].innerHTML = "Copy"
+      }, 1000);
       console.log('Copied video url to clipboard!');
     };
   }, 100);
