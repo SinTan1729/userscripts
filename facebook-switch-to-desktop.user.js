@@ -7,4 +7,5 @@
 // @author      SinTan
 // @description 6/21/2020, 10:24:02 PM
 // ==/UserScript==
-window.location.href = window.location.href.replace("://m.", "://www.")
+
+window.location.href = window.location.href.replace("://m.", "://www.");

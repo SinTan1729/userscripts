@@ -10,21 +10,21 @@
 // ==/UserScript==
 
 // Change this to whatever you want
-const new_username = 'username'
 
-const checkElement = async selector => {
-    while (document.querySelector(selector) === null) {
-        await new Promise(resolve => requestAnimationFrame(resolve))
-    }
-    return document.querySelector(selector);
+const new_username = "username";
+
+const checkElement = async (selector) => {
+  while (document.querySelector(selector) === null) {
+    await new Promise((resolve) => requestAnimationFrame(resolve));
+  }
+  return document.querySelector(selector);
 };
 
-checkElement('div.ms-2').then((div) => {
-    const img = div.getElementsByTagName('img')[0];
-    const username = div.getElementsByTagName('span')[0];
+checkElement("div.ms-2").then((div) => {
+  const img = div.getElementsByTagName("img")[0];
+  const username = div.getElementsByTagName("span")[0];
 
-    img.src = 'https://i.imgur.com/b08hxPY.png';
-    img.alt = new_username;
-    username.innerHTML = new_username;
+  img.src = "https://i.imgur.com/b08hxPY.png";
+  img.alt = new_username;
+  username.innerHTML = new_username;
 });
-

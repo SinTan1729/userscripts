@@ -7,4 +7,5 @@
 // @author SinTan
 // @version 1.1
 // ==/UserScript==
-window.location.href=document.getElementsByTagName("a")[0].href
+
+window.location.href = document.getElementsByTagName("a")[0].href;

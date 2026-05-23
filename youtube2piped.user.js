@@ -17,52 +17,55 @@
 
   // Do not execute inside embedded players
   if (window.location !== window.parent.location) {
-    exit;;
+    exit;
   }
 
   // Use #no-piped as an escape term
-  if (location.href.endsWith('#no-piped')) {
+  if (location.href.endsWith("#no-piped")) {
     exit;
   }
 
   // Edit instance url here to go to any instance of choice
   const instance = "https://piped.video";
 
-  const url = new URL(window.location.href.replace('/shorts/','/watch?v=').replace('?si=','&si='));
+  const url = new URL(
+    window.location.href
+      .replace("/shorts/", "/watch?v=")
+      .replace("?si=", "&si="),
+  );
   let url_new = null;
 
-  let id = url.searchParams.get('v');
-  let ts = url.searchParams.get('t');
-  let listId = url.searchParams.get('list');
-
+  let id = url.searchParams.get("v");
+  let ts = url.searchParams.get("t");
+  let listId = url.searchParams.get("list");
 
   if (id) {
-    url_new = instance + '/watch?v=' + id;
+    url_new = instance + "/watch?v=" + id;
     if (ts) {
-      url_new += '&t=' + ts;
+      url_new += "&t=" + ts;
     }
     if (listId) {
-      url_new += '&list=' + listId;
+      url_new += "&list=" + listId;
     }
   }
 
-  if (!(url_new)) {
+  if (!url_new) {
     if (listId) {
-      url_new = instance + '/playlist?list=' + listId;
+      url_new = instance + "/playlist?list=" + listId;
     }
   }
 
-  if (!(url_new)) {
-    let pattern = /https:\/\/www\.youtube\.com\/((?:(?:channel\/)|\@)[A-Za-z0-9\_\-]+).*/;
+  if (!url_new) {
+    let pattern =
+      /https:\/\/www\.youtube\.com\/((?:(?:channel\/)|\@)[A-Za-z0-9\_\-]+).*/;
     let channelAddr = pattern.exec(url)[1];
 
     if (channelAddr) {
-      url_new = instance + '/' + channelAddr;
+      url_new = instance + "/" + channelAddr;
     }
   }
 
   if (url_new) {
     window.location.replace(url_new);
   }
-}
-)();
+})();
