@@ -9,8 +9,6 @@
 // @icon         https://upload.wikimedia.org/wikipedia/commons/f/fd/YouTube_full-color_icon_%282024%29.svg
 // @match        *://*.youtube.com/*
 // @grant        GM.setClipboard
-// @downloadURL https://update.greasyfork.org/scripts/536130/One%20Click%20Copy%20on%20YouTube.user.js
-// @updateURL https://update.greasyfork.org/scripts/536130/One%20Click%20Copy%20on%20YouTube.meta.js
 // ==/UserScript==
 
 onUrlChange();
