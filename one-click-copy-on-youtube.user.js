@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         One Click Copy on YouTube
-// @version      1.3
+// @version      1.4
 // @description  Replaces the YouTube share button with a copy button that copies the shortlinks using a single click
 // @homepage     https://github.com/SinTan1729/userscripts
 // @author       SinTan
@@ -49,13 +49,28 @@ function onUrlChange() {
     const textBox = btn.getElementsByClassName(
       "ytSpecButtonShapeNextButtonTextContent",
     )[0];
-    textBox.innerHTML = "Copy";
+    textBox.innerText = "Copy";
     // Change the icon
     const svg = svgs[0];
-    svg.innerHTML =
-      '<path fill-rule="evenodd" d="M21 8a3 3 0 0 0-3-3h-8a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h8a3 3 0 0 0 3-3V8Zm-2 0a1 1 0 0 0-1-1h-8a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V8Z" clip-rule="evenodd"/>';
-    svg.innerHTML +=
-      '<path d="M6 3h10a1 1 0 1 0 0-2H6a3 3 0 0 0-3 3v14a1 1 0 1 0 2 0V4a1 1 0 0 1 1-1Z"/>';
+    const path1 = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "path",
+    );
+    path1.setAttribute(
+      "d",
+      "M21 8a3 3 0 0 0-3-3h-8a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h8a3 3 0 0 0 3-3V8Zm-2 0a1 1 0 0 0-1-1h-8a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V8Z",
+    );
+    path1.setAttribute("fill-rule", "evenodd");
+    path1.setAttribute("clip-rule", "evenodd");
+    const path2 = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "path",
+    );
+    path2.setAttribute(
+      "d",
+      "M6 3h10a1 1 0 1 0 0-2H6a3 3 0 0 0-3 3v14a1 1 0 1 0 2 0V4a1 1 0 0 1 1-1Z",
+    );
+    svg.replaceChildren(path1, path2);
     // Change the click function
     const urlParams = new URLSearchParams(window.location.search);
     const videoID = urlParams.get("v");
@@ -65,9 +80,9 @@ function onUrlChange() {
       const btn = document.querySelector(
         '#actions yt-button-view-model button[aria-label="Copy"]',
       );
-      textBox.innerHTML = "Copied!";
+      textBox.innerText = "Copied!";
       setTimeout(function () {
-        textBox.innerHTML = "Copy";
+        textBox.innerText = "Copy";
       }, 1000);
       console.log("Copied video url to clipboard!");
     };
