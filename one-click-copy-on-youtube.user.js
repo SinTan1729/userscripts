@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         One Click Copy on YouTube
-// @version      1.4
+// @version      1.5
 // @description  Replaces the YouTube share button with a copy button that copies the shortlinks using a single click
 // @homepage     https://github.com/SinTan1729/userscripts
 // @author       SinTan
@@ -52,6 +52,7 @@ function onUrlChange() {
     textBox.innerText = "Copy";
     // Change the icon
     const svg = svgs[0];
+    svg.setAttribute("viewBox", "0 0 24 24");
     const path1 = document.createElementNS(
       "http://www.w3.org/2000/svg",
       "path",
